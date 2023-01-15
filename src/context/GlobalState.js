@@ -15,17 +15,19 @@ export const GlobalContext = createContext(initialState);
 // Provider Component
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
+  const apiBaseUrl =
+    process.env.NODE_ENV === 'production'
+      ? 'https://expensetracker-api-ohma.onrender.com'
+      : 'http://localhost:5000';
+  const axiosConfig = {
+    headers: { 'Access-Control-Allow-Credentials': true },
+    baseURL: apiBaseUrl,
+  };
 
   // Actions
   async function getTransactions() {
     try {
-      const res = await axios.get('/api/v1/transactions', {
-        headers: { 'Access-Control-Allow-Credentials': true },
-        baseURL:
-          process.env.NODE_ENV === 'production'
-            ? 'https://expensetracker-api-ohma.onrender.com'
-            : 'http://localhost:5000',
-      });
+      const res = await axios.get('/api/v1/transactions', axiosConfig);
 
       dispatch({
         type: 'GET_TRANSACTIONS',
@@ -41,7 +43,7 @@ export const GlobalProvider = ({ children }) => {
 
   async function deleteTransaction(id) {
     try {
-      await axios.delete(`/api/v1/transactions/${id}`);
+      await axios.delete(`/api/v1/transactions/${id}`, axiosConfig);
 
       dispatch({
         type: 'DELETE_TRANSACTION',
@@ -62,8 +64,15 @@ export const GlobalProvider = ({ children }) => {
       },
     };
 
+    axiosConfig.headers = { ...axiosConfig.headers, ...config.headers };
+    console.log(axiosConfig);
+
     try {
-      const res = await axios.post('/api/v1/transactions', transaction, config);
+      const res = await axios.post(
+        '/api/v1/transactions',
+        transaction,
+        axiosConfig
+      );
 
       dispatch({
         type: 'ADD_TRANSACTION',
