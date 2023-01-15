@@ -20,6 +20,7 @@ export const GlobalProvider = ({ children }) => {
   async function getTransactions() {
     try {
       const res = await axios.get('/api/v1/transactions', {
+        headers: { 'Access-Control-Allow-Credentials': true },
         baseURL:
           process.env.NODE_ENV === 'production'
             ? 'https://expensetracker-api-ohma.onrender.com'
