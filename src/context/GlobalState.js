@@ -19,7 +19,12 @@ export const GlobalProvider = ({ children }) => {
   // Actions
   async function getTransactions() {
     try {
-      const res = await axios.get('/api/v1/transactions');
+      const res = await axios.get('/api/v1/transactions', {
+        baseURL:
+          process.env.NODE_ENV === 'production'
+            ? 'https://expensetracker-api-ohma.onrender.com'
+            : 'http://localhost:5000',
+      });
 
       dispatch({
         type: 'GET_TRANSACTIONS',
