@@ -23,9 +23,8 @@ export const GlobalProvider = ({ children }) => {
   const axiosConfig = {
     headers: {
       Accept: 'application/json',
-      'X-Access-Control-Allow-Credentials':
-        process.env.NODE_ENV === 'production',
-      'X-Access-Control-Allow-Headers': process.env.NODE_ENV === 'production',
+      'Access-Control-Allow-Credentials': process.env.NODE_ENV === 'production',
+      'Access-Control-Allow-Headers': process.env.NODE_ENV === 'production',
     },
     baseURL: apiBaseUrl,
   };
