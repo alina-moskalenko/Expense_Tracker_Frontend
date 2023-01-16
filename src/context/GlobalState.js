@@ -24,6 +24,7 @@ export const GlobalProvider = ({ children }) => {
     headers: {
       Accept: 'application/json',
       'Access-Control-Allow-Credentials': process.env.NODE_ENV === 'production',
+      'Access-Control-Allow-Headers': process.env.NODE_ENV === 'production',
     },
     baseURL: apiBaseUrl,
   };
