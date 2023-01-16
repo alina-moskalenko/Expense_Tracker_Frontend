@@ -17,7 +17,7 @@ export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
   const apiBaseUrl =
     process.env.NODE_ENV === 'production'
-      ? 'https://expensetracker-api-ohma.onrender.com/'
+      ? 'https://expensetracker-api-ohma.onrender.com'
       : 'http://localhost:5000';
 
   const axiosConfig = {
