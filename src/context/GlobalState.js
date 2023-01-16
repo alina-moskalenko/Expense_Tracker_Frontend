@@ -20,9 +20,13 @@ export const GlobalProvider = ({ children }) => {
       ? 'https://expensetracker-api-ohma.onrender.com'
       : 'http://localhost:5000';
   const axiosConfig = {
-    headers: { 'Access-Control-Allow-Credentials': true },
+    headers: {
+      'Access-Control-Allow-Credentials': process.env.NODE_ENV === 'production',
+    },
     baseURL: apiBaseUrl,
   };
+
+  console.log(process.env.NODE_ENV);
 
   // Actions
   async function getTransactions() {

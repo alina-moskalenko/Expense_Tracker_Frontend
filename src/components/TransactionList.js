@@ -10,13 +10,14 @@ export const TransactionList = () => {
     getTransactions();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  console.log(transactions);
 
   return (
     <>
       <h3>History</h3>
       <ul id='list' className='list'>
         {transactions.map((transaction) => (
-          <Transaction key={transaction.id} transaction={transaction} />
+          <Transaction key={transaction._id} transaction={transaction} />
         ))}
       </ul>
     </>
