@@ -19,24 +19,20 @@ export const GlobalProvider = ({ children }) => {
     process.env.NODE_ENV === 'production'
       ? 'https://expensetracker-api-ohma.onrender.com'
       : 'http://localhost:5000';
-  console.log(
-    "process.env.NODE_ENV === 'production'",
-    process.env.NODE_ENV === 'production'
-  );
+
   const axiosConfig = {
     headers: {
+      Accept: 'application/json',
       'Access-Control-Allow-Credentials': process.env.NODE_ENV === 'production',
     },
     baseURL: apiBaseUrl,
   };
 
-  console.log(process.env.NODE_ENV);
-
   // Actions
   async function getTransactions() {
     try {
       const res = await axios.get('/api/v1/transactions', axiosConfig);
-
+      console.log(res);
       dispatch({
         type: 'GET_TRANSACTIONS',
         payload: res.data.data,
